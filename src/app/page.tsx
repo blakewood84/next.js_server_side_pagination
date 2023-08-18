@@ -10,7 +10,6 @@ export default async function Home({
 }) {
   const page = typeof searchParams.page === "string" ? searchParams.page : "1";
   const result = await fetchCurated({ page });
-  const timeout = await new Promise((resolve) => setTimeout(resolve, 3000));
   return (
     <main className="container mx-auto">
       <div className="p-10">Hello</div>
