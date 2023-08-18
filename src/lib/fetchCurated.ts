@@ -1,6 +1,9 @@
+import "server-only";
+
+import { cache } from "react";
 import { PhotoResponseSchema } from "@/types/photo";
 
-export const fetchCurated = async ({ page }: { page: string }) => {
+export const fetchCurated = cache(async ({ page }: { page: string }) => {
   try {
     const response = await fetch(`/api/curated?page=${page}`);
     const json = response.json();
@@ -8,4 +11,4 @@ export const fetchCurated = async ({ page }: { page: string }) => {
   } catch (error) {
     throw new Error("Error fetching curated photos.");
   }
-};
+});

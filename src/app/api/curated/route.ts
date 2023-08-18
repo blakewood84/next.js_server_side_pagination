@@ -9,6 +9,7 @@ export async function GET(request: Request) {
       Authorization: process.env.PEXELS_API_KEY ?? "",
       connection: "keep-alive",
     },
+    cache: "force-cache" as RequestCache,
   };
 
   const url =
