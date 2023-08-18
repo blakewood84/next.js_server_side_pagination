@@ -7,24 +7,24 @@ export async function GET(request: Request) {
     headers: {
       "Content-Type": "application/json",
       Authorization: process.env.PEXELS_API_KEY ?? "",
+      connection: "keep-alive",
     },
-    cache: "force-cache" as RequestCache,
   };
 
   const url =
-    `${process.env.PEXELS_API_ENDPOINT}/?` +
+    `${process.env.PEXELS_API_ENDPOINT}/curated?` +
     new URLSearchParams({
       page: "1",
       per_page: "15",
     });
 
   try {
-    const response = await fetch(url, options).then(
-      async (res) => await res.json()
-    );
-    const result = PhotoResponseSchema.parse(response);
+    const response = await fetch(url, options);
+    const json = await response.json();
+    const result = PhotoResponseSchema.parse(json);
     return NextResponse.json(result);
   } catch (error) {
     console.log("error: ", error);
+    return new Response("Request Error ", { status: 500 });
   }
 }
