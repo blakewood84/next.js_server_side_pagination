@@ -2,6 +2,11 @@ import { PhotoResponseSchema } from "@/types/photo";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
+  const searchParams = new URL(request.url).searchParams;
+
+  const page = searchParams.get("page") ?? "1";
+  const perPage = searchParams.get("per_page") ?? "15";
+
   const options = {
     method: "GET",
     headers: {
@@ -15,8 +20,8 @@ export async function GET(request: Request) {
   const url =
     `${process.env.PEXELS_API_ENDPOINT}/curated?` +
     new URLSearchParams({
-      page: "1",
-      per_page: "15",
+      page,
+      per_page: perPage,
     });
 
   try {
