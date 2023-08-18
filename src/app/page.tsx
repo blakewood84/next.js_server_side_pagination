@@ -9,13 +9,13 @@ export default async function Home({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const page = typeof searchParams.page === "string" ? searchParams.page : "1";
-  const result = (await fetchCurated({ page })).photos;
-  console.log("result: ", result);
+  const result = await fetchCurated({ page });
+  const timeout = await new Promise((resolve) => setTimeout(resolve, 3000));
   return (
     <main className="container mx-auto">
       <div className="p-10">Hello</div>
       <div className="flex flex-wrap">
-        {result.map((photo, index) => {
+        {result.photos.map((photo, index) => {
           return (
             <div className="relative w-[300px] h-[200px]" key={index}>
               <Image

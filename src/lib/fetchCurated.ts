@@ -13,13 +13,13 @@ export const fetchCurated = cache(
   }) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/curated?page=${page}${per_page}`
+        `http://localhost:3000/api/curated?page=${page}&per_page=${per_page}`
       );
       const json = await response.json();
       return PhotoResponseSchema.parse(json);
     } catch (error) {
       console.log("error: ", error);
-      throw new Error("Error fetching curated photos.");
+      throw new Error(`Error fetching curated photos: ${error}`);
     }
   }
 );

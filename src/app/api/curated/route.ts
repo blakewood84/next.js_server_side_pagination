@@ -24,10 +24,13 @@ export async function GET(request: Request) {
       per_page: perPage,
     });
 
+  console.log("URL: ", url);
+
   try {
     const response = await fetch(url, options);
     const json = await response.json();
     const result = PhotoResponseSchema.parse(json);
+
     return NextResponse.json(result);
   } catch (error) {
     console.log("error: ", error);
